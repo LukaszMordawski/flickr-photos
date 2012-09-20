@@ -15,8 +15,14 @@ body {
     height: 160px;
 }
 
-.photo,
 .photo img {
-    min-width: 160px;
-    max-width: 240px;
+    height: 140px;
+}
+
+.photo div {
+    text-align: center;
+}
+
+.photo div a {
+    cursor: pointer;
 }
