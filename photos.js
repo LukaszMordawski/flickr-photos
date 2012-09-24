@@ -86,6 +86,44 @@ var setupPhotos = (function ($) {
         }
         return null;
     }
+    
+    function removeFromCookie(val)
+    {
+        c = getCookie('flickr-photos-favs');
+        arr = c.split('|');
+        for (i = 0; i < arr.length; i++)
+        {
+            if (arr[i] == val)
+                arr.splice(i, 1);
+        }
+        setCookie('flickr-photos-favs', c, 30);
+    }
+    
+    function findInCookie(val)
+    {
+        c = getCookie('flickr-photos-favs');
+        arr = c.split('|');
+        for (i = 0; i < arr.length; i++)
+        {
+            if (arr[i] == val)
+                return true;
+        }
+        return false;
+    }
+    
+    function addToCookie(val)
+    {
+        c = getCookie('flickr-photos-favs');
+        if (c == '')
+        {
+            c = val;
+        }
+        else
+        {
+            c += '|'+val;
+        }
+        setCookie('flickr-photos-favs', c, 30);
+    }
 
     function imageAppender (id) {
         var holder = document.getElementById(id);
