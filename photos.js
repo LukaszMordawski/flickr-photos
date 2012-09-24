@@ -96,12 +96,15 @@ var setupPhotos = (function ($) {
             if (arr[i] == val)
                 arr.splice(i, 1);
         }
+        c = arr.join('|')
         setCookie('flickr-photos-favs', c, 30);
     }
     
     function findInCookie(val)
     {
         c = getCookie('flickr-photos-favs');
+        if (!c)
+            return false;
         arr = c.split('|');
         for (i = 0; i < arr.length; i++)
         {
@@ -145,14 +148,14 @@ var setupPhotos = (function ($) {
                 
                 icon = this.childNodes[0];
                 
-                if (null == getCookie(cname))
+                if (!findInCookie(cname))
                 {
-                    setCookie(cname, '1', 30);
+                    addToCookie(cname);
                     icon.className = 'icon-heart';
                 }
                 else
                 {
-                    setCookie(cname, '', -1);
+                    removeFromCookie(cname);
                     icon.className = 'icon-heart-empty';
                 }
                     
@@ -162,7 +165,7 @@ var setupPhotos = (function ($) {
             likeIcon = document.createElement('i');
             
             imageId = getImageId(img.src);
-            if (getCookie('fav_'+imageId))
+            if (findInCookie('fav_'+imageId))
                 likeIcon.className = 'icon-heart';
             else
                 likeIcon.className = 'icon-heart-empty';
